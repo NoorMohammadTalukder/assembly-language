@@ -1,5 +1,4 @@
-;Read a character. If it's "y" or "Y", display it; otherwise, terminate the program
-
+;if between A-Z then print it
 .model small
 .stack 100h
 .data
@@ -16,27 +15,18 @@ var db ?
         
         mov ah,1
         int 21h
-        mov var,al
         
-        cmp var,'Y'
-        je level1
-        
-        cmp var,'y'
-        je level1
-        
-        jmp exit
+        cmp al,'Z'
+        jg exit
+        jle level1
         
         level1:
-        mov ah,2
-        mov dl,10
-        int 21h
-        mov dl,13
-        int 21h
+        cmp al,'A'
+        jl exit
         
         mov ah,2
-        mov dl,var
+        mov dl,al
         int 21h
-        
         
         exit:
         main endp
